@@ -7,13 +7,6 @@
 ![arrow_infer](https://user-images.githubusercontent.com/98299006/207795256-e1d45e5c-bc8b-4a6d-a604-081dc4601644.jpg)
 
 ## Installation
-Clone the repository to your workspace's src directory.
-
-```
-cd /path-to-workspace/src
-git clone https://github.com/waseemR02/arrow_infer.git
-```
-*Note: remove the `git` related directories and files if you have git initialized your workspace or add the package as a submodule, else you won't be able to commit any changes in your local repository* 
 
 Install the dependencies for `YOLOv5`
 ```
