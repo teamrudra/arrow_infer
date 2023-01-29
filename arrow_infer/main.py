@@ -24,16 +24,16 @@ from utils.torch_utils import select_device, smart_inference_mode
 
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import UInt16MultiArray as uint16
+from std_msgs.msg import UInt32MultiArray as uint32
 
 @smart_inference_mode()
 class YNode(Node):
     def __init__(self):
         super().__init__('arrow_infer')
-        self.publisher_coordinates = self.create_publisher(uint16, "inference", 10)
+        self.publisher_coordinates = self.create_publisher(uint32, "inference", 10)
         self.run(
             weights = 'irc_model_best.pt',
-            source = '0',
+            source = '2',
             imgsz = (192,256),
 			max_det=1,
 			conf_thres=0.5,
@@ -171,11 +171,20 @@ class YNode(Node):
                         xyxy = [int(i) for i in xyxy]
                         area = (xyxy[0] - xyxy[2])*(xyxy[1] - xyxy[3])
                         xyxy.insert(0,int(self.index_for_infer))
+                        xyxy.insert(0,1)
                         xyxy.append(area)
-                        msg = uint16()
+                        msg = uint32()
                         msg.data = xyxy
                         self.publisher_coordinates.publish(msg)
                         self.get_logger().info('Publishing: "%s"' % msg.data)
+                        
+                else:
+                    xyxy = [0,0,0,0,0,0,0]
+                    msg = uint32()
+                    msg.data = xyxy
+                    self.publisher_coordinates.publish(msg)
+                    self.get_logger().info('Publishing: "%s"' % msg.data)
+                        
 
 
                 # Stream results
