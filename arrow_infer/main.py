@@ -32,9 +32,11 @@ class YNode(Node):
         super().__init__('arrow_infer')
         self.publisher_coordinates = self.create_publisher(uint16, "inference", 10)
         self.run(
-            weights = 'best.pt',
+            weights = 'irc_model_best.pt',
             source = '0',
-            imgsz = (192,256)
+            imgsz = (192,256),
+			max_det=1,
+			conf_thres=0.5,
             )
 
 
