@@ -169,7 +169,9 @@ class YNode(Node):
                         
                         # Publishing coordinates to topic '/coordinates'
                         xyxy = [int(i) for i in xyxy]
+                        area = (xyxy[0] - xyxy[2])*(xyxy[1] - xyxy[3])
                         xyxy.insert(0,int(self.index_for_infer))
+                        xyxy.append(area)
                         msg = uint16()
                         msg.data = xyxy
                         self.publisher_coordinates.publish(msg)
